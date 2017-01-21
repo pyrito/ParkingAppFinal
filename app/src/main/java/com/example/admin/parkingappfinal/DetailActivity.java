@@ -16,12 +16,14 @@
 
 package com.example.admin.parkingappfinal;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,5 +64,10 @@ public class DetailActivity extends AppCompatActivity {
         placePicutre.setImageDrawable(placePictures.getDrawable(postion % placePictures.length()));
 
         placePictures.recycle();
+    }
+
+    public void goToParkDisplay(View view){
+        Intent intent = new Intent(this, ParkDisplayActivity.class);
+        startActivity(intent);
     }
 }

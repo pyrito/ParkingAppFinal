@@ -100,6 +100,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@string/detail_location" />
+
+            <Button
+                android:text="Check"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/button"
+                android:onClick="goToParkDisplay"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

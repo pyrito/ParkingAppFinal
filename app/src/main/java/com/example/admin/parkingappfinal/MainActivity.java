@@ -16,6 +16,7 @@
 
 package com.example.admin.parkingappfinal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -57,10 +58,14 @@ public class MainActivity extends AppCompatActivity {
         // Setting ViewPager for each Tabs
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+
         // Set Tabs inside Toolbar
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-        // Create Navigation drawer and inlfate layout
+        //TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        //tabs.setupWithViewPager(viewPager);
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        adapter.addFragment(new TileContentFragment(), "Tile");
+        viewPager.setAdapter(adapter);
+        // Create Navigation drawer and inflate layout
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         // Adding menu icon to Toolbar
@@ -102,9 +107,9 @@ public class MainActivity extends AppCompatActivity {
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new ListContentFragment(), "List");
+        //adapter.addFragment(new ListContentFragment(), "List");
         adapter.addFragment(new TileContentFragment(), "Tile");
-        adapter.addFragment(new CardContentFragment(), "Card");
+        //adapter.addFragment(new CardContentFragment(), "Card");
         viewPager.setAdapter(adapter);
     }
 
@@ -144,6 +149,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void goToParkDisplay(View view){
+        Intent intent = new Intent(this, ParkDisplayActivity.class);
+        startActivity(intent);
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -158,4 +167,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -80,7 +80,7 @@ public class TileContentFragment extends Fragment {
      */
     public static class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
         // Set numbers of Tiles in RecyclerView.
-        private static final int LENGTH = 18;
+        private static final int LENGTH = 4;
 
         private final String[] mPlaces;
         private final Drawable[] mPlacePictures;
@@ -89,7 +89,7 @@ public class TileContentFragment extends Fragment {
             mPlaces = resources.getStringArray(R.array.places);
             TypedArray a = resources.obtainTypedArray(R.array.places_picture);
             mPlacePictures = new Drawable[a.length()];
-            for (int i = 0; i < mPlacePictures.length; i++) {
+            for (int i = 0; i < 4; i++) {
                 mPlacePictures[i] = a.getDrawable(i);
             }
             a.recycle();
