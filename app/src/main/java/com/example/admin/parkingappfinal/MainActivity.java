@@ -18,6 +18,7 @@ package com.example.admin.parkingappfinal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -36,8 +37,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -47,7 +57,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
-
+    private static final String url = "jdbc:mysql://10.0.2.2:8889/ParkingSpaces";
+    private static final String user = "andUser";
+    private static final String pass = "password";
+    String[] spaces = new String[3];
+    int[] filled = new int[3];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +114,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Snackbar.make(v, "Hello Snackbar!",
                         Snackbar.LENGTH_LONG).show();
+            }
+        });
+//        super.onCreate(savedInstanceState);
+        setContentView(R.layout.park_display);
+        Button button = (Button) findViewById(R.id.refreshButton);
+        button.setOnClickListener(new View.OnClickListener()   {
+            public void onClick(View v)  {
+                try {
+                    update();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -166,6 +193,77 @@ public class MainActivity extends AppCompatActivity {
             mDrawerLayout.openDrawer(GravityCompat.START);
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void update(){
+        ImageView a1on = (ImageView) findViewById(R.id.imageView);
+        ImageView a1off = (ImageView) findViewById(R.id.A1off);
+        ImageView a2on = (ImageView) findViewById(R.id.A2on);
+        ImageView a2off = (ImageView) findViewById(R.id.A2off);
+        ImageView b1on = (ImageView) findViewById(R.id.B1on);
+        ImageView b1off = (ImageView) findViewById(R.id.B1off);
+        try {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,user,pass);
+
+            String result =  "Database connection success\n";
+            System.out.println("We made it here");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("select * from Lot1");
+            ResultSetMetaData rsmd = rs.getMetaData();
+            //System.out.println(rs.getString(1));
+            //System.out.println(rs.getString(2));
+            //System.out.println(rs.getString(3));
+            while(rs.next()) {
+                //System.out.println(rs.getString(1));
+                //System.out.println(rs.getString(2));
+                //System.out.println(rs.getString(3));
+                //result += rsmd.getColumnName(1) + ": " + rs.getString(1) + "\n";
+                result += rsmd.getColumnName(2) + ":" + rs.getString(2);
+                result += rsmd.getColumnName(3) + ":" + rs.getString(3);
+            }
+            //System.out.println(result);
+            for(int i = 0;i<3;i++) {
+                spaces[i] = result.substring(result.indexOf(":") + 1, result.indexOf(":") + 3);
+                String newResult = result.substring(result.indexOf(":")+3);
+                System.out.println(newResult);
+                filled[i] = Integer.parseInt(newResult.substring(newResult.indexOf(":") + 1, newResult.indexOf(":") + 2));
+                result = newResult.substring(newResult.indexOf(":")+2);
+            }
+            System.out.println(Arrays.toString(spaces));
+            System.out.println(Arrays.toString(filled));
+            //tv.setText(result);
+            if(filled[0]==1)
+            {
+                a1on.bringToFront();
+            }
+            if(filled[0]==0)
+            {
+                a1off.bringToFront();
+            }
+            if(filled[1]==1)
+            {
+                a2on.bringToFront();
+            }
+            if(filled[1]==0)
+            {
+                a2off.bringToFront();
+            }
+            if(filled[2]==1)
+            {
+                b1on.bringToFront();
+            }
+            if(filled[2]==0)
+            {
+                b1off.bringToFront();
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            //tv.setText(e.toString());
+        }
     }
 
 }

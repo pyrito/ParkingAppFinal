@@ -1,16 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:text="test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="159dp"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="205dp"
-        android:id="@+id/textView"
+    <ImageView
+        android:layout_width="300px"
+        android:layout_height="600px"
+        app:srcCompat="@drawable/green"
+        android:layout_marginLeft="63dp"
+        android:layout_marginStart="63dp"
+        android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="300px"
+        android:layout_height="600px"
+        app:srcCompat="@drawable/red"
+        android:id="@+id/A1off"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
+
+    <ImageView
+    android:layout_width="300px"
+    android:layout_height="600px"
+    app:srcCompat="@drawable/green"
+        android:id="@+id/B1on"
+        android:layout_alignTop="@+id/B1off"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_marginTop="14dp" />
+
+    <ImageView
+        android:layout_width="300px"
+        android:layout_height="600px"
+        app:srcCompat="@drawable/green"
+        android:id="@+id/A2on"
+        android:layout_marginTop="37dp"
+        android:layout_alignTop="@+id/B1on"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="300px"
+        android:layout_height="600px"
+        app:srcCompat="@drawable/red"
+        android:id="@+id/A2off"
+        android:layout_alignTop="@+id/A2on"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
+
+    <Button
+        android:text="Refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:id="@+id/refreshButton"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/B1on"
+        android:layout_alignEnd="@+id/B1on" />
+
+    <ImageView
+        android:layout_width="300px"
+        android:layout_height="660px"
+        app:srcCompat="@drawable/red"
+        android:id="@+id/B1off"
+        android:layout_marginTop="27dp"
+        android:layout_alignTop="@+id/refreshButton"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView" />
+
 </RelativeLayout>
