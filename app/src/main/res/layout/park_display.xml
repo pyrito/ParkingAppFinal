@@ -72,4 +72,13 @@
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView" />
 
+    <TextView
+        android:text="Sample Parking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/refreshButton"
+        android:layout_toLeftOf="@+id/B1on"
+        android:layout_toStartOf="@+id/B1on" />
+
 </RelativeLayout>
